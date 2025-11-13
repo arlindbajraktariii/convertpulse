@@ -3,10 +3,12 @@ services:
     name: guesswhere-frontend
     runtime: node
     buildCommand: cd frontend && npm install && npm run build
-    startCommand: cd frontend && npm start
+    startCommand: cd frontend && HOST=0.0.0.0 npm start
     envVars:
       - key: NODE_ENV
         value: production
+      - key: HOST
+        value: 0.0.0.0
       - key: NEXT_PUBLIC_API_URL
         fromSecret: api_url
     buildFilter:
@@ -17,10 +19,12 @@ services:
     name: guesswhere-backend
     runtime: node
     buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    startCommand: cd backend && HOST=0.0.0.0 npm start
     envVars:
       - key: NODE_ENV
         value: production
+      - key: HOST
+        value: 0.0.0.0
       - key: MONGODB_URI
         fromSecret: mongodb_uri
       - key: JWT_SECRET

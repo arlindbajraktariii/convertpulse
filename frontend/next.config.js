@@ -22,4 +22,12 @@ const nextConfig = {
   },
 }
 
+// For PaaS deployments, ensure we bind to 0.0.0.0
+if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
+  nextConfig.serverRuntimeConfig = {
+    hostname: '0.0.0.0',
+    port: process.env.PORT || 3000,
+  };
+}
+
 module.exports = nextConfig
