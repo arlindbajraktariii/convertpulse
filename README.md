@@ -1,8 +1,8 @@
-# ConvertPulse - Landing Page Analytics SaaS
+# Guesswhere - Landing Page Analytics SaaS
 
 A complete full-stack SaaS application for tracking user behavior on landing pages and visualizing analytics in a clean dashboard.
 
-![ConvertPulse](https://img.shields.io/badge/Status-MVP-success)
+![Guesswhere](https://img.shields.io/badge/Status-MVP-success)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 ## 🚀 Features

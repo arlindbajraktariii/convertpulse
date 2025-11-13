@@ -1,6 +1,6 @@
-# ConvertPulse Frontend
+# Guesswhere Frontend
 
-Next.js dashboard for ConvertPulse analytics platform.
+Next.js dashboard for Guesswhere analytics platform.
 
 ## Setup
 

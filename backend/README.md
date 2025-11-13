@@ -1,6 +1,6 @@
-# ConvertPulse Backend API
+# Guesswhere Backend API
 
-Backend API for ConvertPulse - Landing Page Analytics SaaS
+Backend API for Guesswhere - Landing Page Analytics SaaS
 
 ## Setup
 

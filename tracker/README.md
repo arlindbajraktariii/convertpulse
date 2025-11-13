@@ -42,15 +42,15 @@ Add `data-track` attribute to any element for custom tracking:
 
 ```javascript
 // Track custom event
-ConvertPulse.track('custom-event', 'button-name', 1);
+Guesswhere.track('custom-event', 'button-name', 1);
 
 // Force flush event queue
-ConvertPulse.flush();
+Guesswhere.flush();
 ```
 
 ## Configuration
 
-Update `API_ENDPOINT` in `convertpulse.js` to point to your backend:
+Update `API_ENDPOINT` in `guesswhere.js` to point to your backend:
 
 ```javascript
 const API_ENDPOINT = 'https://your-api.com/api/events';
