@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: guesswhere-frontend
+    runtime: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        fromSecret: api_url
+    buildFilter:
+      paths:
+        - frontend/**
+
+  - type: web
+    name: guesswhere-backend
+    runtime: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromSecret: mongodb_uri
+      - key: JWT_SECRET
+        fromSecret: jwt_secret
+    buildFilter:
+      paths:
+        - backend/**

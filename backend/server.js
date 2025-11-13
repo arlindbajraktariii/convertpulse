@@ -5,8 +5,16 @@ require('dotenv').config();
 
 const app = express();
 
+// CORS Configuration - Allow requests from any domain for tracker
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'X-Site-ID'],
+  credentials: false
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // MongoDB Connection
@@ -24,9 +32,13 @@ app.use('/api/checkout', require('./routes/checkout'));
 app.use('/api/early-access', require('./routes/earlyAccess'));
 app.use('/api/track', require('./routes/track'));
 
-// Serve tracking script directly
+// Serve tracking script directly with proper CORS headers
 app.get('/tracker.js', (req, res) => {
-  res.type('application/javascript');
+  res.set('Content-Type', 'application/javascript');
+  res.set('Cache-Control', 'public, max-age=3600');
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, X-Site-ID');
   res.sendFile(__dirname + '/../tracker/tracker.js');
 });
 

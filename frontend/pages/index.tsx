@@ -98,7 +98,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">Add This Snippet</h3>
               <p className="text-gray-600 text-sm mb-3">Copy and paste this JS snippet to enable real-time analytics:</p>
-              <pre className="bg-gray-100 rounded-md text-xs p-2 overflow-x-auto select-all text-left"><code>{`<script src="https://cdn.guesswhere.com/tracker.js" async></script>`}</code></pre>
+              <pre className="bg-gray-100 rounded-md text-xs p-2 overflow-x-auto select-all text-left"><code>{`<script src="https://guesswhere.com/tracker.js" async></script>`}</code></pre>
             </div>
             {/* Real-Time Insights Card */}
             <div className="flex-1 max-w-xs bg-white/90 border border-gray-200 shadow-lg rounded-2xl px-6 py-8 text-center backdrop-blur-md">

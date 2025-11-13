@@ -2,12 +2,17 @@
   "name": "guesswhere",
   "version": "1.0.0",
   "description": "Landing Page Analytics SaaS - Track user behavior and visualize engagement",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "install-all": "cd backend && npm install && cd ../frontend && npm install",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
-    "build": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm ci && npm run build",
     "start-backend": "cd backend && npm start",
-    "start-frontend": "cd frontend && npm start"
+    "start-frontend": "cd frontend && npm start",
+    "postinstall": "npm run install-all"
   },
   "keywords": [
     "analytics",
