@@ -71,21 +71,27 @@ const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '0.0.0.0';
 
 console.log(`Starting server on ${HOST}:${PORT}...`);
+console.log(`Environment PORT: ${process.env.PORT}`);
+console.log(`Environment HOST: ${process.env.HOST}`);
 
-const server = app.listen(PORT, HOST, () => {
-  console.log(`🚀 Server running on ${HOST}:${PORT}`);
-  console.log(`Health check available at http://${HOST}:${PORT}/health`);
-}).on('error', (err) => {
-  console.error('Server failed to start:', err);
-  process.exit(1);
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully');
-  server.close(() => {
-    console.log('Process terminated');
+// Add a small delay to ensure port is available
+setTimeout(() => {
+  const server = app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running on ${HOST}:${PORT}`);
+    console.log(`Health check available at http://${HOST}:${PORT}/health`);
+  }).on('error', (err) => {
+    console.error('Server failed to start:', err);
+    console.error('PORT:', PORT, 'HOST:', HOST);
+    process.exit(1);
   });
-});
+
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received, shutting down gracefully');
+    server.close(() => {
+      console.log('Process terminated');
+    });
+  });
+}, 2000);
 
 module.exports = app;
