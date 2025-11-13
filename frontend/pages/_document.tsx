@@ -12,19 +12,7 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        {/* 100% privacy-first analytics */}
-        <script
-          data-collect-dnt="true"
-          async
-          src="https://scripts.simpleanalyticscdn.com/latest.js"
-        />
-        <noscript>
-          <img
-            src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true"
-            alt=""
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </noscript>
+        {/* 100% privacy-first analytics - moved to _app.tsx */}
       </Head>
       <body>
         <Main />

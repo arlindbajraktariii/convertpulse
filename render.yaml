@@ -19,7 +19,7 @@ services:
     name: guesswhere-backend
     runtime: node
     buildCommand: cd backend && npm install
-    startCommand: cd backend && HOST=0.0.0.0 npm start
+    startCommand: cd backend && node server.js
     envVars:
       - key: NODE_ENV
         value: production

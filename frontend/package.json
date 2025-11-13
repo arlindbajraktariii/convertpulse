@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=18.0.0 <25.0.0",
     "npm": ">=8.0.0"
   },
   "scripts": {
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "next": "14.0.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "recharts": "^2.10.3",
     "axios": "^1.6.2",
     "next-auth": "^4.24.5",
