@@ -46,6 +46,9 @@ router.post('/register', [
       { expiresIn: '7d' }
     );
 
+    // Set session
+    req.session.userId = user._id;
+
     res.status(201).json({
       token,
       user: {
@@ -92,6 +95,9 @@ router.post('/login', [
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
+
+    // Set session
+    req.session.userId = user._id;
 
     res.json({
       token,

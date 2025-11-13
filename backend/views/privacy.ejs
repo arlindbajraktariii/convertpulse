@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Guesswhere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#FBFBFB]">
+    <div class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="border-b border-gray-200 bg-white">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <a href="/" class="text-2xl font-bold tracking-tight text-black hover:opacity-80 transition-opacity">
+                        Guesswhere
+                    </a>
+                    <div class="flex items-center gap-8">
+                        <% if (isLoggedIn) { %>
+                            <a href="/dashboard" class="text-sm font-medium text-gray-500 hover:text-black transition-colors">Dashboard</a>
+                        <% } else { %>
+                            <a href="/login" class="text-sm font-medium text-gray-500 hover:text-black transition-colors">Login</a>
+                        <% } %>
+                        <a href="<%= isLoggedIn ? '/dashboard' : '/register' %>" class="px-6 py-3 bg-[#84994F] text-white hover:bg-[#6B7A3F] text-sm font-medium rounded-lg transition-colors">
+                            <%= isLoggedIn ? 'Dashboard' : 'Get Started Free' %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="max-w-4xl mx-auto px-6 py-16">
+            <h1 class="text-4xl font-bold mb-8">Privacy Policy</h1>
+            <div class="prose prose-lg">
+                <p class="text-gray-600 mb-6">Last updated: November 13, 2025</p>
+                
+                <h2 class="text-2xl font-bold mt-8 mb-4">Introduction</h2>
+                <p class="text-gray-700 mb-4">
+                    At Guesswhere, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your information when you use our analytics service.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">Information We Collect</h2>
+                <p class="text-gray-700 mb-4">
+                    We collect minimal information necessary to provide our analytics service:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li>Account information (email, name) when you register</li>
+                    <li>Website analytics data (page views, clicks, scroll depth)</li>
+                    <li>Technical information (browser type, device type, IP address)</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">How We Use Your Information</h2>
+                <p class="text-gray-700 mb-4">
+                    We use the collected information to:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li>Provide and improve our analytics service</li>
+                    <li>Send you important updates about your account</li>
+                    <li>Respond to your support requests</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">Data Security</h2>
+                <p class="text-gray-700 mb-4">
+                    We implement industry-standard security measures to protect your data. All data is encrypted in transit and at rest.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">GDPR Compliance</h2>
+                <p class="text-gray-700 mb-4">
+                    Guesswhere is GDPR compliant. We don't use cookies for tracking, and all analytics data is anonymized.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">Contact Us</h2>
+                <p class="text-gray-700 mb-4">
+                    If you have any questions about this Privacy Policy, please contact us at privacy@guesswhere.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-[#FBFBFB] py-16 border-t border-gray-200 mt-16">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <p class="text-sm text-gray-500">&copy; 2025 Guesswhere. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

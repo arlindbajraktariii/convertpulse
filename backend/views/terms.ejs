@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Guesswhere</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#FBFBFB]">
+    <div class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="border-b border-gray-200 bg-white">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <a href="/" class="text-2xl font-bold tracking-tight text-black hover:opacity-80 transition-opacity">
+                        Guesswhere
+                    </a>
+                    <div class="flex items-center gap-8">
+                        <% if (isLoggedIn) { %>
+                            <a href="/dashboard" class="text-sm font-medium text-gray-500 hover:text-black transition-colors">Dashboard</a>
+                        <% } else { %>
+                            <a href="/login" class="text-sm font-medium text-gray-500 hover:text-black transition-colors">Login</a>
+                        <% } %>
+                        <a href="<%= isLoggedIn ? '/dashboard' : '/register' %>" class="px-6 py-3 bg-[#84994F] text-white hover:bg-[#6B7A3F] text-sm font-medium rounded-lg transition-colors">
+                            <%= isLoggedIn ? 'Dashboard' : 'Get Started Free' %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="max-w-4xl mx-auto px-6 py-16">
+            <h1 class="text-4xl font-bold mb-8">Terms of Service</h1>
+            <div class="prose prose-lg">
+                <p class="text-gray-600 mb-6">Last updated: November 13, 2025</p>
+                
+                <h2 class="text-2xl font-bold mt-8 mb-4">1. Acceptance of Terms</h2>
+                <p class="text-gray-700 mb-4">
+                    By accessing and using Guesswhere, you accept and agree to be bound by the terms and provisions of this agreement.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">2. Use License</h2>
+                <p class="text-gray-700 mb-4">
+                    Permission is granted to use Guesswhere for analytics purposes on your websites. This license shall automatically terminate if you violate any of these restrictions.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">3. Service Description</h2>
+                <p class="text-gray-700 mb-4">
+                    Guesswhere provides website analytics services. We reserve the right to modify or discontinue the service at any time.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">4. User Responsibilities</h2>
+                <p class="text-gray-700 mb-4">
+                    You are responsible for:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                    <li>Maintaining the security of your account</li>
+                    <li>All activities that occur under your account</li>
+                    <li>Complying with all applicable laws and regulations</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">5. Limitations</h2>
+                <p class="text-gray-700 mb-4">
+                    In no event shall Guesswhere be liable for any damages arising out of the use or inability to use our service.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">6. Modifications</h2>
+                <p class="text-gray-700 mb-4">
+                    Guesswhere may revise these terms of service at any time without notice. By using this service, you agree to be bound by the current version of these terms.
+                </p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">7. Contact</h2>
+                <p class="text-gray-700 mb-4">
+                    If you have any questions about these Terms, please contact us at support@guesswhere.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-[#FBFBFB] py-16 border-t border-gray-200 mt-16">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <p class="text-sm text-gray-500">&copy; 2025 Guesswhere. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

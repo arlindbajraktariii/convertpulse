@@ -1,9 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
+
+// View engine setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // CORS Configuration - Allow requests from any domain for tracker
 const corsOptions = {
@@ -16,12 +24,38 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Session configuration
+app.use(session({
+  secret: process.env.JWT_SECRET || 'super-secret-session-key',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/guesswhere',
+    touchAfter: 24 * 3600 // lazy session update
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production'
+  }
+}));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/guesswhere')
+console.log('🔄 Connecting to MongoDB...');
+console.log('MongoDB URI:', process.env.MONGODB_URI ? 'Set (hidden)' : 'Not set, using localhost');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/guesswhere', {
+  serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+  socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+})
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => {
-    console.error('❌ MongoDB connection error:', err);
+    console.error('❌ MongoDB connection error:', err.message);
+    console.error('Full error:', err);
     // Don't exit the process, just log the error
     // process.exit(1);
   });
@@ -62,9 +96,100 @@ app.get('/tracker.js', (req, res) => {
   res.sendFile(__dirname + '/../tracker/tracker.js');
 });
 
+// Authentication middleware for protected routes
+const requireAuth = (req, res, next) => {
+  if (req.session && req.session.userId) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
+
+// View Routes
+app.get('/', (req, res) => {
+  res.render('index', { isLoggedIn: !!req.session.userId });
+});
+
+app.get('/login', (req, res) => {
+  if (req.session.userId) {
+    return res.redirect('/dashboard');
+  }
+  res.render('login', { error: null });
+});
+
+app.get('/register', (req, res) => {
+  if (req.session.userId) {
+    return res.redirect('/dashboard');
+  }
+  res.render('register', { error: null });
+});
+
+app.get('/dashboard', requireAuth, async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const user = await User.findById(req.session.userId);
+    res.render('dashboard', { user: user.toObject() });
+  } catch (error) {
+    res.redirect('/login');
+  }
+});
+
+app.get('/sites', requireAuth, async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const user = await User.findById(req.session.userId);
+    res.render('sites', { user: user.toObject() });
+  } catch (error) {
+    res.redirect('/login');
+  }
+});
+
+app.get('/profile', requireAuth, async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const user = await User.findById(req.session.userId);
+    res.render('profile', { user: user.toObject() });
+  } catch (error) {
+    res.redirect('/login');
+  }
+});
+
+app.get('/privacy', (req, res) => {
+  res.render('privacy', { isLoggedIn: !!req.session.userId });
+});
+
+app.get('/terms', (req, res) => {
+  res.render('terms', { isLoggedIn: !!req.session.userId });
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date() });
+  const mongoStatus = mongoose.connection.readyState;
+  const statusMessages = {
+    0: 'disconnected',
+    1: 'connected',
+    2: 'connecting',
+    3: 'disconnecting'
+  };
+
+  res.json({
+    status: mongoStatus === 1 ? 'ok' : 'error',
+    timestamp: new Date(),
+    mongodb: {
+      status: statusMessages[mongoStatus] || 'unknown',
+      readyState: mongoStatus,
+      database: mongoose.connection.db ? mongoose.connection.db.databaseName : null
+    },
+    environment: {
+      node_env: process.env.NODE_ENV,
+      mongodb_uri: process.env.MONGODB_URI ? 'configured' : 'not configured'
+    }
+  });
 });
 
 const PORT = process.env.PORT || 5000;
@@ -74,24 +199,32 @@ console.log(`Starting server on ${HOST}:${PORT}...`);
 console.log(`Environment PORT: ${process.env.PORT}`);
 console.log(`Environment HOST: ${process.env.HOST}`);
 
-// Add a small delay to ensure port is available
-setTimeout(() => {
-  const server = app.listen(PORT, HOST, () => {
-    console.log(`🚀 Server running on ${HOST}:${PORT}`);
-    console.log(`Health check available at http://${HOST}:${PORT}/health`);
-  }).on('error', (err) => {
-    console.error('Server failed to start:', err);
-    console.error('PORT:', PORT, 'HOST:', HOST);
-    process.exit(1);
-  });
+// Start server
+const server = app.listen(PORT, HOST, () => {
+  console.log(`🚀 Server running on ${HOST}:${PORT}`);
+  console.log(`Health check available at http://${HOST}:${PORT}/health`);
+  console.log(`View your site at http://localhost:${PORT}`);
+}).on('error', (err) => {
+  console.error('Server failed to start:', err);
+  console.error('PORT:', PORT, 'HOST:', HOST);
+  process.exit(1);
+});
 
-  // Graceful shutdown
-  process.on('SIGTERM', () => {
-    console.log('SIGTERM received, shutting down gracefully');
-    server.close(() => {
-      console.log('Process terminated');
-    });
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('Process terminated');
+    process.exit(0);
   });
-}, 2000);
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received, shutting down gracefully');
+  server.close(() => {
+    console.log('Process terminated');
+    process.exit(0);
+  });
+});
 
 module.exports = app;

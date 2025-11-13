@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 251, 251, 251;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #FBFBFB;
+  font-family: 'Stack Sans Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .bg-main {
+    @apply bg-[#FBFBFB];
+  }
+  .btn {
+    @apply px-6 py-3 font-medium transition-all duration-200 cursor-pointer inline-block text-center rounded-lg shadow-sm hover:shadow-md;
+  }
+  
+  .btn-primary {
+    @apply bg-[#84994F] text-white hover:bg-[#6B7A3F] active:bg-[#556232] shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-black hover:bg-gray-50 shadow-sm hover:shadow-md;
+  }
+  
+  .btn-outline {
+    @apply bg-white text-black hover:bg-gray-50 shadow-sm hover:shadow-md;
+  }
+  
+  .card {
+    @apply bg-white rounded-3xl p-8 transition-all duration-200 shadow-sm border border-gray-100;
+  }
+  
+  .card-hover {
+    @apply bg-white rounded-3xl p-8 transition-all duration-200 shadow-sm hover:shadow-md border border-gray-100;
+  }
+  
+  .stat-card {
+    @apply bg-white rounded-2xl p-6 transition-all duration-200 shadow-sm border border-gray-100;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black bg-white text-black shadow-sm;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold mb-4 tracking-tight;
+  }
+  
+  .section-subtitle {
+    @apply text-xl text-gray-600 mb-8;
+  }
+}
