@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guesswhere Tracker Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    h1 { font-size: 3rem; margin-bottom: 20px; }
+    .cta {
+      background: white;
+      color: #667eea;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s;
+    }
+    .cta:hover { transform: scale(1.05); }
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .feature-card {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .feature-card h3 { margin-bottom: 15px; color: #667eea; }
+    footer {
+      background: #2d3748;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    .long-content {
+      height: 800px;
+      background: linear-gradient(to bottom, #f0f4ff, #e0e7ff);
+      padding: 40px;
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Guesswhere Demo</h1>
+    <p style="font-size: 1.3rem; margin-bottom: 30px;">Track every interaction on your landing page</p>
+    <button class="cta" data-track="header-cta-primary">Get Started Free</button>
+    <button class="cta" data-track="header-cta-demo">Watch Demo</button>
+  </header>
+
+  <section>
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Why Choose Guesswhere?</h2>
+    <p style="text-align: center; font-size: 1.2rem; color: #666; max-width: 700px; margin: 0 auto;">
+      Understand exactly how visitors interact with your landing pages. No more guessing.
+    </p>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>📊 Scroll Tracking</h3>
+        <p>See exactly how far visitors scroll on your page and identify drop-off points.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🖱️ Click Heatmaps</h3>
+        <p>Track which buttons and CTAs get the most clicks and optimize accordingly.</p>
+      </div>
+      <div class="feature-card">
+        <h3>⏱️ Time Analytics</h3>
+        <p>Measure engagement with precise time-on-page metrics for every visitor.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="long-content">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 20px;">Scroll Down to Test Tracking</h2>
+    <p style="text-align: center; color: #666;">
+      This section helps demonstrate scroll depth tracking. Keep scrolling to see how ConvertPulse captures your behavior!
+    </p>
+  </div>
+
+  <section>
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px;">Ready to Get Started?</h2>
+    <div style="text-align: center;">
+      <button class="cta" data-track="bottom-cta-signup">Sign Up Now</button>
+      <button class="cta" data-track="bottom-cta-pricing">View Pricing</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Guesswhere. All rights reserved.</p>
+    <p style="margin-top: 10px; opacity: 0.8;">Built for modern SaaS teams</p>
+  </footer>
+
+  <!-- Guesswhere Tracking Script -->
+  <!-- IMPORTANT: Replace 'YOUR_API_KEY_HERE' with your actual site API key -->
+  <script src="convertpulse.js" data-site-id="YOUR_API_KEY_HERE"></script>
+
+  <!-- Demo: Log events to console -->
+  <script>
+    console.log('Guesswhere Demo Page Loaded');
+    console.log('Session ID:', window.Guesswhere ? 'Active' : 'Not loaded');
+  </script>
+</body>
+</html>
